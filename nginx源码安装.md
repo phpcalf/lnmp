@@ -1,22 +1,22 @@
 Nginx1.4源码包安装
 
-安装前先用yum安装相关依赖以防止安装期间出现错误
+    安装前先用yum安装相关依赖以防止安装期间出现错误
     
     yum -y install gcc gcc-c++ autoconf automake
     yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
-在这期间可能会报 yum Multilib Version Problems Found等错误(不要紧，此坑已帮你填满了)
-原因是因为多个库不能共存，不过更新的话也并不行，但是可以在安装命令后面加上
-只需要在后面加上下面的命令
+    在这期间可能会报 yum Multilib Version Problems Found等错误(不要紧，此坑已帮你填满了)
+    原因是因为多个库不能共存，不过更新的话也并不行，但是可以在安装命令后面加上
+    只需要在后面加上下面的命令
 
     --setopt=protected_multilib=false
-完整命令就是
+    完整命令就是
 
     sudo yum -y install zlib zlib-devel openssl openssl-devel pcre-devel --setopt=protected_multilib=false
-ok,完美解决,Perfect!
+    ok,完美解决,Perfect!
 
-接下来就是重点了，首先下载源码包，
+    接下来就是重点了，首先下载源码包，
 
-nginx 下载地址 http://nginx.org/en/download.html
+    nginx 下载地址 http://nginx.org/en/download.html
 
     //下载的方式有很多，本地下载好后通过ftp/rz上传，更快捷的直接通过wget 
     //我一般习惯将下载包统一放置于(/usr/local/src )下便于管理
