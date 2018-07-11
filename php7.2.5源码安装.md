@@ -25,5 +25,28 @@
     正式安装php
     [xxxxx@xxxxxx src]# cd php-7.2.5/
     [xxxxx@xxxxxx php-7.2.5]# ./configure --prefix=/usr/local/php --with-config-file-path=/etc --with-mysql-sock=/tmp/mysql.sock  --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --enable-fpm --with-fpm-user=nginx  --with-fpm-group=nginx --enable-inline-optimization --disable-debug --disable-rpath --enable-shared  --enable-soap  --with-libdir=lib64  --with-xmlrpc --with-openssl --enable-sockets --with-mhash --with-pcre-regex --with-sqlite3 --with-zlib --with-iconv --with-bz2 --with-curl --enable-fileinfo --with-jpeg-dir=/usr/local/jpeg --with-png-dir=/usr/local/libpng  --with-freetype-dir=/usr/local/freetype  --enable-json --enable-mbstring --enable-pdo
-    [xxxxx@xxxxxx php-7.2.5]# make && make install
-    //这个编译需要二十分钟左右，耐心等待！
+    [xxxxx@xxxxxx php-7.2.5]# make && make install （这个编译需要二十分钟左右，耐心等待！）
+    //接下来就是进行PHP与nginx关联
+    //进入到php的安装目录的etc下
+    [xxxxx@xxxxxx php-7.2.5]# cd /usr/local/php
+    //复制PHP源码包中的php.ini.default到当前目录下
+    [xxxxx@xxxxxx php]# cp /usr/local/src/php-7.2.5/php.ini-development etc/php.ini
+    [xxxxx@xxxxxx php]# cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf (去掉[global]下的pid前的注释)
+    [xxxxx@xxxxxx php]# chmod 777 /usr/local/php/var/run (#默认PID文件是写在/usr/local/php/var/run这个目录中，所以修改目录权限)
+    [xxxxx@xxxxxx php]# sbin/php-fpm (启动php,可通过sbin/php-fpm -h 查看相关操作命令列表)
+    //当然啦，你也可以在/usr/lib/systemd/system目录下新建php-fpm.service文件，这样就可以通过systemctl stop|start|reload php-fpm.service来操作php-fpm，内容如下：
+　　　　[Unit]
+　　　　Description=The PHP FastCGI Process Manager
+　　　　After=syslog.target network.target
+　　　　Before=nginx.service
+
+　　　　[Service]
+　　　　Type=forking
+　　　　PIDFile=/usr/local/php/var/run/php-fpm.pid
+　　　　ExecStart=/usr/local/php/sbin/php-fpm
+　　　　ExecStop=/bin/kill -QUIT `cat /usr/local/php/var/run/php-fpm.pid`
+　　　　ExecReload=/bin/kill -USR2 `cat /usr/local/php/var/run/php-fpm.pid`
+　　　　PrivateTmp=true
+
+　　　　[Install]
+　　　　WantedBy=multi-user.target
