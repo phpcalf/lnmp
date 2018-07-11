@@ -35,18 +35,18 @@
     [xxxxx@xxxxxx php]# chmod 777 /usr/local/php/var/run (#默认PID文件是写在/usr/local/php/var/run这个目录中，所以修改目录权限)
     [xxxxx@xxxxxx php]# sbin/php-fpm (启动php,可通过sbin/php-fpm -h 查看相关操作命令列表)
     //当然啦，你也可以在/usr/lib/systemd/system目录下新建php-fpm.service文件，这样就可以通过systemctl stop|start|reload php-fpm.service来操作php-fpm，内容如下：
-　　　　[Unit]
-　　　　Description=The PHP FastCGI Process Manager
-　　　　After=syslog.target network.target
-　　　　Before=nginx.service
-
-　　　　[Service]
-　　　　Type=forking
-　　　　PIDFile=/usr/local/php/var/run/php-fpm.pid
-　　　　ExecStart=/usr/local/php/sbin/php-fpm
-　　　　ExecStop=/bin/kill -QUIT `cat /usr/local/php/var/run/php-fpm.pid`
-　　　　ExecReload=/bin/kill -USR2 `cat /usr/local/php/var/run/php-fpm.pid`
-　　　　PrivateTmp=true
-
-　　　　[Install]
-　　　　WantedBy=multi-user.target
+    　　　　[Unit]
+    　　　　Description=The PHP FastCGI Process Manager
+    　　　　After=syslog.target network.target
+    　　　　Before=nginx.service
+    
+    　　　　[Service]
+    　　　　Type=forking
+    　　　　PIDFile=/usr/local/php/var/run/php-fpm.pid
+    　　　　ExecStart=/usr/local/php/sbin/php-fpm
+    　　　　ExecStop=/bin/kill -QUIT `cat /usr/local/php/var/run/php-fpm.pid`
+    　　　　ExecReload=/bin/kill -USR2 `cat /usr/local/php/var/run/php-fpm.pid`
+    　　　　PrivateTmp=true
+    
+    　　　　[Install]
+    　　　　WantedBy=multi-user.target
