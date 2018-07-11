@@ -1,12 +1,14 @@
 一、mysql5.7的主要特性
-    （1）原生支持Systemd
-    （2）更好的性能：对于多核CPU、固态硬盘、锁有着更好的优化
-    （3）更好的InnoDB存储引擎
-    （4）更为健壮的复制功能：复制带来了数据完全不丢失的方案，传统金融客户也可以使用mysql数据库
-    （5）新增sys库：以后这会是DBA访问最频繁的库
-    （6）更好的优化器： 优化器代码重构的意义将在这个版本及以后版本中带来巨大的改进，Oracle官方正在解决mysql之前最大的难题原生JSON类型的支持（JavaScript object Notation）
-     注：JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。JSON采用完全独立于语言的文本格式，但是也使用了类似c语言家族的习惯（包括c、c++、c#、java、JavaScript、Perl、Python）等。这些特性使json称为理想的数据交换语言。易于阅读和编写，同时也易于机器解析和生成（对于提升网路传输速率有帮助）。
+
+        （1）原生支持Systemd
+        （2）更好的性能：对于多核CPU、固态硬盘、锁有着更好的优化
+        （3）更好的InnoDB存储引擎
+        （4）更为健壮的复制功能：复制带来了数据完全不丢失的方案，传统金融客户也可以使用mysql数据库
+        （5）新增sys库：以后这会是DBA访问最频繁的库
+        （6）更好的优化器： 优化器代码重构的意义将在这个版本及以后版本中带来巨大的改进，Oracle官方正在解决mysql之前最大的难题原生JSON类型的支持（JavaScript object Notation）
+         注：JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。JSON采用完全独立于语言的文本格式，但是也使用了类似c语言家族的习惯（包括c、c++、c#、java、JavaScript、Perl、Python）等。这些特性使json称为理想的数据交换语言。易于阅读和编写，同时也易于机器解析和生成（对于提升网路传输速率有帮助）。
 二、安装前准备
+
      1.由于centos7.2默认安装的数据库是mariadb-libs，这样安装时会你报错，首先查看一下mariadb-libs是否已经安装
         
         [xxxxx@xxxxxx ~]$ rpm  -qa | grep  mariadb-libs
